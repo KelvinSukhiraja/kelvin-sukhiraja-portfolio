@@ -1,3 +1,4 @@
+import { afterimageProjectFields } from "../afterimageFields";
 import { CaseIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
@@ -7,6 +8,7 @@ export const project = defineType({
   type: "document",
   icon: CaseIcon,
   fields: [
+    ...afterimageProjectFields,
     defineField({
       name: "name",
       title: "Name",

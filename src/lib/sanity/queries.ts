@@ -1,45 +1,16 @@
-import { defineQuery } from "groq";
-
-export const PORTFOLIO_QUERY = defineQuery(`{
-  "projects": *[_type == "project" && featured != false] | order(year desc, order asc) {
-    _id,
-    name,
-    year,
-    "type": coalesce(category, type),
-    "desc": description,
-    details,
-    tags,
-    href,
-    image {
-      asset->{ _id, url },
-      alt
-    },
-    gallery[] {
-      asset->{ _id, url },
-      alt
-    }
-  },
-  "experience": *[_type == "experience"] | order(order asc) {
-    _id,
-    period,
-    role,
-    company,
-    "desc": description,
-    highlights,
-    tags
-  },
-  "education": *[_type == "education"] | order(order asc) {
-    _id,
-    period,
-    degree,
-    school
-  },
-  "siteSettings": *[_type == "siteSettings"][0] {
-    heroEyebrow,
-    heroTitle,
-    heroBody,
-    heroStats,
-    email,
-    copyright
+const projectFields = `
+  _id, name, title, "slug": slug.current, year, category, type, description, details,
+  image { ..., asset->{ _id, url } }, heroImage { ..., asset->{ _id, url } },
+  gallery[] { ..., asset->{ _id, url } }, href, githubUrl, tags, role, client,
+  featured, order, presentation, theme, videoUrl,
+  chapters[] { _key, title, body, image { ..., asset->{ _id, url } } },
+  relatedProjects[]->{ _id }
+`;
+export const PORTFOLIO_QUERY = `{
+  "projects": *[_type == "project" && !(_id in path("drafts.**"))] | order(coalesce(order, 9999) asc, year desc, _id asc) { ${projectFields} },
+  "settings": *[_type == "siteSettings"] | order(_updatedAt desc) [0] {
+    name, location, heroEyebrow, heroTitle, heroBody, heroImage { ..., asset->{ _id, url } },
+    biography, aboutTitle, email, copyright, availability, seoTitle, seoDescription, contactTitle,
+    socialLinks, capabilities, technologies, featuredProjects[]->{ _id }
   }
-}`);
+}`;
