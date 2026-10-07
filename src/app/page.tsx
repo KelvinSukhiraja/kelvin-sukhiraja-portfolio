@@ -33,13 +33,13 @@ export default async function Home() {
         <h1 className="hero-title display" id="hero-title"><span data-entrance>{heroLines[0]}</span>{heroLines.length > 1 && <em data-entrance>{heroLines.slice(1).join(' ')}</em>}</h1>
         <div className="hero-copy" data-entrance><p>{settings.heroBody || defaults.heroBody}</p><span className="eyebrow">Design sensibility. Engineering depth.</span></div>
         <div className="hero-study eyebrow"><span>Study 002 / Ouroboros</span><span>Continuous becoming</span></div>
-        <div className="hero-baseline eyebrow"><a href="#work">Selected work <span aria-hidden="true">↓</span></a><span>{settings.availability || settings.location || defaults.location}</span><a href="#work" className="scroll-cue">Scroll to explore ↓</a></div>
+        <div className="hero-baseline eyebrow"><a href="#work">Selected work <span aria-hidden="true">↓︎</span></a><span>{settings.availability || settings.location || defaults.location}</span><a href="#work" className="scroll-cue">Scroll to explore ↓︎</a></div>
       </section>
       <section id="work" className="selected-work shell" aria-label="Selected work">
         <div className="work-heading" data-reveal><span className="eyebrow">Selected works / An ongoing collection</span><h2 className="display">Built with intent.<em>Made to move.</em></h2><p>Expressive experiences.<br />Systems that work.</p></div>
         {featured.map((project, index) => <article className="work-spread" key={project._id}>
-          <div className="spread-heading" data-reveal><span className="eyebrow">({String(index + 1).padStart(2, '0')})</span><h3><Link href={projectPath(project)}>{project.title}</Link></h3><Link href={projectPath(project)} className="spread-arrow" aria-label={`Explore ${project.title}`}>↗</Link></div>
-          <Link href={projectPath(project)} className="feature-media spread-media" style={{ backgroundColor: mediaTheme(project.theme) }} aria-label={`View ${project.title}`} data-reveal><div className="media-inner" data-parallax><ProjectImage image={project.heroImage || project.image} title={project.title} sizes="90vw" /></div><span className="spread-open eyebrow">Enter project ↗</span></Link>
+          <div className="spread-heading" data-reveal><span className="eyebrow">({String(index + 1).padStart(2, '0')})</span><h3><Link href={projectPath(project)}>{project.title}</Link></h3><Link href={projectPath(project)} className="spread-arrow" aria-label={`Explore ${project.title}`}>↗︎</Link></div>
+          <Link href={projectPath(project)} className="feature-media spread-media" style={{ backgroundColor: mediaTheme(project.theme) }} aria-label={`View ${project.title}`} data-reveal><div className="media-inner" data-parallax><ProjectImage image={project.heroImage || project.image} title={project.title} sizes="90vw" /></div><span className="spread-open eyebrow">Enter project ↗︎</span></Link>
           <div className="spread-caption"><p className="eyebrow">{project.category}<br />{project.year}</p><p>{project.description}</p><span className="eyebrow">{project.tags.slice(0,3).join(' / ')}</span></div>
         </article>)}
         {!projects.length && <p className="empty-message">New work is taking shape. Check back soon.</p>}

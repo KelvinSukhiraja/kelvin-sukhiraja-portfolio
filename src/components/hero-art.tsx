@@ -101,7 +101,7 @@ export function HeroArt() {
       pausedRef.current = !pausedRef.current;
       window.dispatchEvent(new Event('portfolio:hero-pause'));
       setPaused(pausedRef.current);
-    }}>{paused ? 'Resume motion ↗' : 'Pause motion Ⅱ'}</button>
+    }}>{paused ? 'Resume motion ↗︎' : 'Pause motion Ⅱ'}</button>
   </>;
 }
 
