@@ -261,6 +261,9 @@ em { font-family:var(--font-serif),Georgia,serif; font-weight:400; }
 @media(max-width:760px) {
  .hero-art { top:10px; left:4%; width:96%; height:450px; }
  .hero-motion-control { bottom:76px; }
+ /* Keep the settled glyphs crisp on iOS; the full-screen intro remains animated. */
+ .hero-art-stage { display:none; }
+ .hero-art-fallback { opacity:1!important; }
 }
 @media(prefers-reduced-motion:reduce) {
  .hero-art-stage, .hero-motion-control { display:none; }

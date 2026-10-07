@@ -46,5 +46,5 @@ export function AsciiWave() {
     el.addEventListener('pointermove', pointer); document.addEventListener('visibilitychange', visibility); motion.addEventListener('change', change);
     return () => { cancelAnimationFrame(frame); observer.disconnect(); intersection.disconnect(); el.removeEventListener('pointermove', pointer); document.removeEventListener('visibilitychange', visibility); motion.removeEventListener('change', change); };
   }, [expanded]);
-  return <section className="ascii-section" aria-label="Interactive ASCII motion study"><div className="ascii-label eyebrow"><span>Study 001</span><span>Image → matter → code</span></div><canvas ref={canvas} aria-hidden="true" /><button className="ascii-control eyebrow" aria-pressed={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? 'Release tension ↙' : 'Apply tension ↗'}</button></section>;
+  return <section className="ascii-section" aria-label="Interactive ASCII motion study"><div className="ascii-label eyebrow"><span>Study 001</span><span>Image →︎ matter →︎ code</span></div><canvas ref={canvas} aria-hidden="true" /><button className="ascii-control eyebrow" aria-pressed={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? 'Release tension ↙︎' : 'Apply tension ↗︎'}</button></section>;
 }

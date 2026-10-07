@@ -47,7 +47,7 @@ export default async function Home() {
       <ProjectIndex projects={projects} />
       <section id="about" className="about shell">
         <div className="practice-top"><span className="eyebrow">The practice / {settings.name || defaults.name}</span><span className="eyebrow">{settings.location || defaults.location}</span></div>
-        <div className="practice-manifesto"><span className="practice-mark" aria-hidden="true">↗</span><h2 className="display" data-reveal><span>{aboutLines[0]}</span><em>{aboutLines.slice(1).join(' ')}</em></h2></div>
+        <div className="practice-manifesto"><span className="practice-mark" aria-hidden="true">↗︎</span><h2 className="display" data-reveal><span>{aboutLines[0]}</span><em>{aboutLines.slice(1).join(' ')}</em></h2></div>
         <div className="practice-body"><span className="eyebrow">A designer’s eye.<br />An engineer’s mind.</span><p data-reveal>{settings.biography || defaults.biography}</p></div>
         <div className="practice-disciplines">{(settings.capabilities || defaults.capabilities).map((group,index) => <details key={group._key} open={index===0}><summary><span className="eyebrow">0{index+1}</span><h3>{group.title}</h3><span className="discipline-toggle" aria-hidden="true">+</span></summary><ul>{group.items?.map(item=><li key={item}>{item}</li>)}</ul></details>)}</div>
         {technologies.length > 0 && <div className="practice-tools eyebrow"><span>Working with</span><p>{technologies.join(' / ')}</p></div>}

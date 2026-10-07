@@ -103,7 +103,7 @@ export function HeritageStudy() {
       <span className="heritage-instruction eyebrow">Move to disturb.<br />Click or press Enter to turn.</span>
       <span className="heritage-coordinate eyebrow" aria-live="polite">Perspective / 0{pose + 1}</span>
     </div>
-    <div className="heritage-caption"><span className="eyebrow">An Indonesian point of view.</span><div><p>A connection to my Indonesian heritage, translated into a digital material. Raden Saleh’s tigers become pigment, characters and movement. A study in carrying something of home into the things I make.</p><p className="heritage-credit">Contemporary digital interpretation after Raden Saleh, <a href="https://commons.wikimedia.org/wiki/File:Raden_Saleh_-_K%C3%A4mpfende_Tiger_%C3%BCber_der_Leiche_eines_Javaners_1870_-_Belvedere_Wien_Inv.Nr._7899.jpg" target="_blank" rel="noreferrer">Tigers Fighting over a Dead Javanese (1870) ↗</a>. Generated artwork treatment; not a reproduction.</p></div></div>
+    <div className="heritage-caption"><span className="eyebrow">An Indonesian point of view.</span><div><p>A connection to my Indonesian heritage, translated into a digital material. Raden Saleh’s tigers become pigment, characters and movement. A study in carrying something of home into the things I make.</p><p className="heritage-credit">Contemporary digital interpretation after Raden Saleh, <a href="https://commons.wikimedia.org/wiki/File:Raden_Saleh_-_K%C3%A4mpfende_Tiger_%C3%BCber_der_Leiche_eines_Javaners_1870_-_Belvedere_Wien_Inv.Nr._7899.jpg" target="_blank" rel="noreferrer">Tigers Fighting over a Dead Javanese (1870) ↗︎</a>. Generated artwork treatment; not a reproduction.</p></div></div>
   </section>;
 }
 
