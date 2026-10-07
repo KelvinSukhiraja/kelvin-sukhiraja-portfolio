@@ -74,7 +74,7 @@ export function HeroArt() {
     window.addEventListener('blur', leave);
     const image = new window.Image();
     image.onload = () => { if (disposed) return; renderer.upload(image); loaded = true; draw(); sync(); };
-    image.src = '/art/ouroboros-still.svg';
+    image.src = '/art/ouroboros-still.webp';
     const lost = (event: Event) => { event.preventDefault(); loaded = false; cancelAnimationFrame(frame); setReady(false); };
     node.addEventListener('webglcontextlost', lost);
     sync();
