@@ -74,7 +74,7 @@ export function HeroArt() {
     window.addEventListener('blur', leave);
     const image = new window.Image();
     image.onload = () => { if (disposed) return; renderer.upload(image); loaded = true; draw(); sync(); };
-    image.src = '/art/ouroboros-still.webp';
+    image.src = '/art/ouroboros-still.svg';
     const lost = (event: Event) => { event.preventDefault(); loaded = false; cancelAnimationFrame(frame); setReady(false); };
     node.addEventListener('webglcontextlost', lost);
     sync();
@@ -94,7 +94,7 @@ export function HeroArt() {
   }, []);
   return <>
     <div ref={root} className={`hero-art ${ready ? 'is-ready' : ''}`} aria-hidden="true">
-      <Image className="hero-art-fallback" src="/art/ouroboros-still.webp" alt="" width={720} height={760} unoptimized preload />
+      <Image className="hero-art-fallback" src="/art/ouroboros-still.svg" alt="" width={720} height={760} unoptimized preload />
       <canvas ref={canvas} className="hero-art-stage" />
     </div>
     <button className="hero-motion-control eyebrow" aria-pressed={paused} onClick={() => {
