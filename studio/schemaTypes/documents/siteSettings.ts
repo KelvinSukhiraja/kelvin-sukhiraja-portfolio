@@ -1,3 +1,4 @@
+import { afterimageSiteFields } from "../afterimageFields";
 import { CogIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
@@ -7,6 +8,7 @@ export const siteSettings = defineType({
   type: "document",
   icon: CogIcon,
   fields: [
+    ...afterimageSiteFields,
     defineField({
       name: "heroEyebrow",
       title: "Hero eyebrow",
