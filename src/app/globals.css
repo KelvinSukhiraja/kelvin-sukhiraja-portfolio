@@ -598,7 +598,7 @@ html[data-intro='active'] .hero-art { visibility:hidden; }
 .archive-more summary:focus-visible { outline:1px solid var(--paper); outline-offset:4px; }
 .archive-more summary>span:last-child { font-size:24px; }
 @media(min-width:761px) {
- .heritage-stage .tiger-turn { width:min(72%,140cqh); top:24%; left:1%; }
+ .heritage-stage .tiger-turn { width:min(72%,140cqh); top:20%; left:1%; }
 }
 @media(min-width:761px) { .heritage-stage .tiger-turn { left:6%; } }
 @media(max-width:760px) {
