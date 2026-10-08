@@ -607,3 +607,71 @@ html[data-intro='active'] .hero-art { visibility:hidden; }
 @media(max-width:760px) {
  .heritage-stage .tiger-turn { width:95%; left:3%; top:31%; }
 }
+
+/* Editorial rhythm: readable notes, consistent pauses, and space for long CMS copy. */
+.spread-caption>p:nth-child(2) { font-size:15px; line-height:1.7; max-width:46ch; text-wrap:pretty; }
+.spread-caption .eyebrow,.spread-caption>span { font-size:10px; line-height:1.8; }
+.work-spread { margin-bottom:64px; }
+.project-index { padding-top:24px; padding-bottom:96px; }
+.archive-heading { padding-top:28px; border-top:1px solid var(--line); }
+.index-row { min-height:68px; padding-block:18px; }
+.row-category,.row-year { font-size:10px; }
+.archive-description { font-size:14px; max-width:48ch; }
+.practice-body>p { max-width:54ch; text-wrap:pretty; }
+.practice-tools { gap:28px; }
+.practice-tools p { max-width:76ch; }
+.heritage-credit a { text-decoration:underline; text-underline-offset:3px; }
+.case-prose>p,.case-prose>ul,.case-prose>ol { max-width:64ch; }
+.case-title,.next-title { overflow-wrap:anywhere; }
+.case-prose p:last-child { margin-bottom:0; }
+.case-facts dd { font-size:14px; }
+.case-gallery { gap:40px 28px; }
+.site-header nav a { display:inline-flex; align-items:center; min-height:36px; }
+.footer-links a { display:inline-block; padding-block:10px; text-underline-offset:5px; }
+.footer-links a:hover { text-decoration:underline; }
+@media(min-width:761px) {
+ .work-heading { padding-bottom:48px; }
+ .about { padding-top:0; }
+ .practice-manifesto { margin-block:48px 36px; }
+ .practice-body { margin-bottom:40px; }
+ .heritage-study { margin-top:88px; }
+ .contact { padding-top:88px; }
+ .archive-screen { max-height:30svh; }
+ .case-chapter { padding-block:72px; }
+}
+@media(max-width:760px) {
+ .site-header { padding-block:18px; gap:12px; }
+ .site-header nav { gap:16px; }
+ .hero { min-height:0; height:auto; padding-top:22px; padding-bottom:82px; }
+ .hero-title { padding-top:148px; }
+ .hero-copy { position:relative; bottom:auto; margin-top:62px; max-width:32ch; }
+ .hero-copy p { font-size:16px; line-height:1.6; }
+ .hero-copy .eyebrow { font-size:9px; margin-top:18px; }
+ .hero-motion-control { display:none; }
+ .hero-baseline { font-size:9px; gap:16px; }
+ .hero-baseline>span { text-align:right; max-width:55%; }
+ .selected-work { padding-top:12px; }
+ .work-heading { padding-block:32px 36px; }
+ .work-heading>p { margin-left:0; font-size:13px; line-height:1.6; }
+ .spread-heading h3 { line-height:1.15; }
+ .spread-caption { gap:12px; padding-block:18px 0; }
+ .spread-caption>p:nth-child(2) { font-size:14px; }
+ .spread-open { padding:7px 10px; }
+ .project-index { padding-top:0; padding-bottom:64px; }
+ .archive-heading>span { font-size:10px; }
+ .index-row { min-height:64px; padding-block:17px; }
+ .archive-caption>span:first-child { font-size:28px; }
+ .practice-manifesto { margin-block:32px 24px; }
+ .practice-mark { font-size:42px; margin-bottom:20px; }
+ .practice-body>p { margin-left:0; font-size:18px; line-height:1.6; }
+ .practice-disciplines summary { padding-block:20px; }
+ .practice-tools { margin-top:20px; font-size:10px; }
+ .heritage-caption p { font-size:14px; line-height:1.65; }
+ .heritage-caption .heritage-credit { font-size:11px; line-height:1.7; }
+ .contact { padding-top:64px; }
+ .footer-links { margin-top:40px; }
+ .footer-links>div { gap:8px 22px; }
+ .case-prose h2 { font-size:34px; margin-bottom:22px; }
+ .case-prose p { font-size:16px; line-height:1.75; }
+ .case-gallery { margin-top:48px; }
+}

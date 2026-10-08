@@ -56,14 +56,11 @@ export function createOuroborosRenderer(canvas: HTMLCanvasElement) {
   const location=gl.getAttribLocation(program,'aUv');gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,2,gl.FLOAT,false,0,0);
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,elements);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(indices),gl.STATIC_DRAW);
   gl.bindTexture(gl.TEXTURE_2D,texture);
-  // Keep the stippled glyph texture crisp on high-density mobile screens.
-  // Linear filtering blends the transparent gaps into the white ink and can
-  // make the settled ouroboros look like a solid white ring on iOS Safari.
-  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
   const size=gl.getUniformLocation(program,'uSize'), time=gl.getUniformLocation(program,'uTime'), pointer=gl.getUniformLocation(program,'uPointer');
   return {
-    upload(image:HTMLImageElement){gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);},
+    upload(image:HTMLImageElement | HTMLCanvasElement){gl.bindTexture(gl.TEXTURE_2D,texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);},
     draw(width:number,height:number,seconds:number,p:{x:number;y:number;strength:number}){
       gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
       gl.useProgram(program);gl.uniform2f(size,width,height);gl.uniform1f(time,seconds);gl.uniform3f(pointer,p.x,p.y,p.strength);

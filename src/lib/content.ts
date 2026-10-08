@@ -30,10 +30,17 @@ export function normalizeSettings(settings: SiteSettings): SiteSettings {
 }
 
 export function normalizeProject(raw: RawProject): Project {
+  const category = raw.category || raw.type || 'Selected project';
+  const categories: Record<string, string> = {
+    'portfolio': 'Website', 'fullstack portfolio': 'Website',
+    'web-app': 'Web application', 'fullstack web-app': 'Web application',
+    'mobile': 'Mobile application', 'maintain': 'Product maintenance',
+    'e-commerce': 'E-commerce',
+  };
   return { ...raw, title: raw.title?.trim() || raw.name?.trim() || 'Untitled project',
     // Existing documents have no slug. Stable IDs preserve links across name edits.
     slug: raw.slug?.trim() || raw._id,
-    category: raw.category || raw.type || 'Selected project',
+    category: categories[category.toLowerCase()] || category,
     description: raw.description || '', tags: raw.tags || [] };
 }
 
