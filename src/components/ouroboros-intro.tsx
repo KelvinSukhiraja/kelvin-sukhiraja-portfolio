@@ -131,6 +131,6 @@ export function OuroborosIntro() {
     <div ref={veil} className="intro-veil" />
     <canvas ref={canvas} aria-hidden="true" />
     <span className="intro-caption eyebrow">A continuous becoming</span>
-    <button ref={skip} className="intro-skip eyebrow">Skip intro ↗</button>
+    <button ref={skip} className="intro-skip eyebrow">Skip intro ↗︎</button>
   </div>;
 }

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { createOuroborosRenderer } from '@/lib/ouroboros-renderer';
+import points from '@/lib/ouroboros-points.json';
 
 export function HeroArt() {
   const root = useRef<HTMLDivElement>(null);
@@ -17,9 +18,10 @@ export function HeroArt() {
     const renderer = createOuroborosRenderer(node);
     if (!renderer) return;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const mobile = matchMedia('(max-width: 760px)');
     let frame = 0, previous = 0, width = 1, height = 1;
     let visible = true, initialized = false;
-    let loaded = false, disposed = false;
+    let loaded = false;
     const pointer = { x: 0, y: 0, strength: 0 };
     const target = { x: 0, y: 0, strength: 0 };
     const draw = () => {
@@ -40,7 +42,7 @@ export function HeroArt() {
     const sync = () => {
       cancelAnimationFrame(frame);
       previous = 0;
-      if (!pausedRef.current && !preference.matches && visible && !document.hidden) frame = requestAnimationFrame(tick);
+      if (!pausedRef.current && !preference.matches && !mobile.matches && visible && !document.hidden) frame = requestAnimationFrame(tick);
       if (preference.matches) { pointer.strength = 0; clock.current = 0; draw(); }
     };
     const move = (event: PointerEvent) => {
@@ -67,24 +69,36 @@ export function HeroArt() {
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
     observer.observe(element);
     preference.addEventListener('change', sync);
+    mobile.addEventListener('change', sync);
     window.addEventListener('portfolio:hero-pause', sync);
     document.addEventListener('visibilitychange', sync);
     window.addEventListener('pointermove', move, { passive: true });
     document.documentElement.addEventListener('pointerleave', leave);
     window.addEventListener('blur', leave);
-    const image = new window.Image();
-    image.onload = () => { if (disposed) return; renderer.upload(image); loaded = true; draw(); sync(); };
-    image.src = '/art/ouroboros-still.webp';
+    // Rasterize the actual glyphs once, using the same metrics as the intro.
+    // The old generated WebP contains filled blocks instead of readable glyphs.
+    const texture = document.createElement('canvas');
+    texture.width = 1440; texture.height = 1520;
+    const ink = texture.getContext('2d');
+    if (ink) {
+      ink.scale(2, 2); ink.translate(360, 380);
+      ink.font = '4.5px monospace'; ink.textAlign = 'center'; ink.textBaseline = 'middle';
+      ink.fillStyle = '#e1e4de';
+      for (const [x, y, alpha, glyph] of points) {
+        ink.globalAlpha = alpha; ink.fillText('.:/+x%#'[glyph], x, y);
+      }
+      renderer.upload(texture); loaded = true; draw();
+    }
     const lost = (event: Event) => { event.preventDefault(); loaded = false; cancelAnimationFrame(frame); setReady(false); };
     node.addEventListener('webglcontextlost', lost);
     sync();
     return () => {
-      disposed = true; image.onload = null;
       node.removeEventListener('webglcontextlost', lost);
       renderer.dispose();
       cancelAnimationFrame(frame);
       resize.disconnect(); observer.disconnect();
       preference.removeEventListener('change', sync);
+      mobile.removeEventListener('change', sync);
       window.removeEventListener('portfolio:hero-pause', sync);
       document.removeEventListener('visibilitychange', sync);
       window.removeEventListener('pointermove', move);
@@ -94,14 +108,14 @@ export function HeroArt() {
   }, []);
   return <>
     <div ref={root} className={`hero-art ${ready ? 'is-ready' : ''}`} aria-hidden="true">
-      <Image className="hero-art-fallback" src="/art/ouroboros-still.webp" alt="" width={720} height={760} unoptimized preload />
+      <Image className="hero-art-fallback" src="/art/ouroboros-still.svg" alt="" width={720} height={760} unoptimized preload />
       <canvas ref={canvas} className="hero-art-stage" />
     </div>
     <button className="hero-motion-control eyebrow" aria-pressed={paused} onClick={() => {
       pausedRef.current = !pausedRef.current;
       window.dispatchEvent(new Event('portfolio:hero-pause'));
       setPaused(pausedRef.current);
-    }}>{paused ? 'Resume motion ↗' : 'Pause motion Ⅱ'}</button>
+    }}>{paused ? 'Resume motion ↗︎' : 'Pause motion Ⅱ'}</button>
   </>;
 }
 

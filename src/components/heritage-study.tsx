@@ -22,17 +22,17 @@ export function HeritageStudy() {
     image.onload = () => {
       if(disposed) return;
       const sample = document.createElement('canvas');
-      sample.width = 128; sample.height = 76;
+      sample.width = 180; sample.height = 108;
       const sc = sample.getContext('2d',{willReadFrequently:true});
       if(!sc) return;
-      sc.drawImage(image,0,0,128,76);
-      const pixels = sc.getImageData(0,0,128,76).data;
-      for(let y=0;y<76;y++) for(let x=0;x<128;x++) {
-        const i=(y*128+x)*4;
+      sc.drawImage(image,0,0,180,108);
+      const pixels = sc.getImageData(0,0,180,108).data;
+      for(let y=0;y<108;y++) for(let x=0;x<180;x++) {
+        const i=(y*180+x)*4;
         if(pixels[i+3]<100) continue;
         const light=(pixels[i]*.3+pixels[i+1]*.59+pixels[i+2]*.11)/255;
         if(light<.08) continue;
-        points.push({x:x/127,y:y/75,light});
+        points.push({x:x/179,y:y/107,light});
       }
       draw.current();
     };
@@ -42,12 +42,12 @@ export function HeritageStudy() {
       frame = 0;
       if (!width || !height) return;
       ctx.clearRect(0, 0, width, height);
-      const artWidth=width*(width<600?.90:.94);
+      const artWidth=width*1.12;
       const artHeight=artWidth*.6;
-      const centerX=width*(width<600?.57:.55), centerY=height*(width<600?.50:.36);
-      const rotation=-.16;
+      const centerX=width*.63, centerY=height*.40;
+      const rotation=-.08;
       const cos=Math.cos(rotation),sin=Math.sin(rotation);
-      ctx.font = `${Math.max(5,artWidth/128*1.1)}px monospace`;
+      ctx.font = `${Math.max(3,artWidth/180*.82)}px monospace`;
       ctx.textAlign='center';ctx.textBaseline='middle';
       const glyphs='.:+*#%@';
       for(const point of points) {
@@ -58,8 +58,11 @@ export function HeritageStudy() {
         const y=centerY+localX*sin+localY*cos;
         const dx=x-pointer.current.x*width,dy=y-pointer.current.y*height;
         const force=Math.max(0,1-Math.hypot(dx,dy)/150);
-        const fade=Math.min(1,Math.max(0,(x/width-.08)/.4));
-        ctx.fillStyle=`rgba(225,224,217,${fade*(.14+point.light*.64+force*.15)})`;
+        const edge=Math.min(1,Math.max(0,y/height/.12),Math.max(0,(1-y/height)/.2));
+        // Keep the caption's reading area clear without adding a visible panel.
+        const captionFade=width>600 ? 1-Math.max(0,Math.min(1,(x/width-.68)/.12))*Math.max(0,Math.min(1,(y/height-.44)/.16))*.96 : 1;
+        const fade=Math.min(1,Math.max(0,(x/width-.18)/.42))*edge*captionFade;
+        ctx.fillStyle=`rgba(225,224,217,${fade*(.05+point.light*.40+force*.16)})`;
         const glyph=glyphs[Math.min(6,Math.floor(point.light*6+force*2))];
         ctx.fillText(glyph,x+dx*force*.13,y+dy*force*.13);
       }
@@ -80,8 +83,8 @@ export function HeritageStudy() {
     const next = (pose + 1) % 3;
     setPose(next);
   }
-  return <section id="heritage" className="heritage-study shell" aria-labelledby="heritage-title">
-    <div className="heritage-label eyebrow"><span>Study / Heritage</span><span>Image, type & matter</span></div>
+  return <section id="heritage" className="heritage-study heritage-editorial shell" aria-labelledby="heritage-title">
+    <div className="heritage-label eyebrow"><span>Study / 003</span><span>Image, type & memory</span></div>
     <div ref={stage} className={`heritage-stage pose-${pose}`} onPointerMove={event => {
       const rect = event.currentTarget.getBoundingClientRect();
       const x = (event.clientX - rect.left) / rect.width;
@@ -98,12 +101,11 @@ export function HeritageStudy() {
       <h2 id="heritage-title">Heritage</h2>
       <canvas ref={canvas} className="heritage-ascii" aria-hidden="true" />
       <button className="tiger-turn" onClick={turn} aria-label="Turn the tiger artwork" data-pose={pose}>
-        <Image src="/art/raden-saleh-tiger-pink-red.webp" alt="Red and pink screenprint study of two intertwined tigers, after Raden Saleh" width={1400} height={840} sizes="(max-width:760px) 90vw, 55vw" />
+        <Image src="/art/raden-saleh-tiger-pink-red.webp" alt="Red and pink screenprint study of two intertwined tigers, after Raden Saleh" width={1400} height={840} sizes="(max-width:760px) 90vw, 65vw" />
       </button>
-      <span className="heritage-instruction eyebrow">Move to disturb.<br />Click or press Enter to turn.</span>
-      <span className="heritage-coordinate eyebrow" aria-live="polite">Perspective / 0{pose + 1}</span>
+      <div className="heritage-caption"><p>A connection to my Indonesian heritage, explored through image, type and movement.</p><p className="heritage-credit">A digital interpretation of Raden Saleh’s tigers, 1870.</p><a className="heritage-source" href="https://commons.wikimedia.org/wiki/File:Raden_Saleh_-_K%C3%A4mpfende_Tiger_%C3%BCber_der_Leiche_eines_Javaners_1870_-_Belvedere_Wien_Inv.Nr._7899.jpg" target="_blank" rel="noreferrer">View the original painting <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13 13 3M3 3h10v10" stroke="currentColor" /></svg></a></div>
     </div>
-    <div className="heritage-caption"><span className="eyebrow">An Indonesian point of view.</span><div><p>A connection to my Indonesian heritage, translated into a digital material. Raden Saleh’s tigers become pigment, characters and movement. A study in carrying something of home into the things I make.</p><p className="heritage-credit">Contemporary digital interpretation after Raden Saleh, <a href="https://commons.wikimedia.org/wiki/File:Raden_Saleh_-_K%C3%A4mpfende_Tiger_%C3%BCber_der_Leiche_eines_Javaners_1870_-_Belvedere_Wien_Inv.Nr._7899.jpg" target="_blank" rel="noreferrer">Tigers Fighting over a Dead Javanese (1870) ↗</a>. Generated artwork treatment; not a reproduction.</p></div></div>
+    <div className="heritage-controls eyebrow"><span>Move to disturb / Click or press Enter to turn</span><span aria-live="polite">Perspective 0{pose + 1} / 03</span></div>
   </section>;
 }
 
