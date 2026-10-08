@@ -675,3 +675,36 @@ html[data-intro='active'] .hero-art { visibility:hidden; }
  .case-prose p { font-size:16px; line-height:1.75; }
  .case-gallery { margin-top:48px; }
 }
+
+/* Heritage: a single editorial plate, with readable type and a quiet image echo. */
+.heritage-editorial .heritage-label { font-size:11px; }
+.heritage-editorial .heritage-stage { height:clamp(530px,75svh,850px); margin-top:30px; container-type:size; }
+.heritage-editorial .heritage-stage h2 { inset:0 auto auto 2%; width:80%; text-align:left; font-size:min(24vw,46cqh); line-height:1; transform:none; z-index:1; pointer-events:none; mask-image:url('/art/heritage-letterpress.svg'); mask-size:240px; }
+.heritage-editorial .heritage-ascii { z-index:0; }
+.heritage-editorial .heritage-stage .tiger-turn { width:min(72%,130cqh); left:1%; top:30%; --roll:-8deg; z-index:2; }
+.heritage-editorial .pose-1 .tiger-turn { --roll:5deg; }
+.heritage-editorial .pose-2 .tiger-turn { --roll:-6deg; }
+.heritage-editorial .heritage-caption { position:absolute; z-index:3; right:0; bottom:13%; width:24%; display:block; border:0; padding:0; margin:0; }
+.heritage-editorial .heritage-caption p { font-size:clamp(16px,1.45vw,22px); line-height:1.5; font-weight:400; }
+.heritage-editorial .heritage-caption .heritage-credit { font-size:12px; line-height:1.65; margin-top:20px; color:var(--muted); }
+.heritage-source { display:inline-flex; align-items:center; gap:16px; font-size:13px; font-weight:400; padding-block:12px 8px; margin-top:15px; border-bottom:1px solid var(--muted); }
+.heritage-source:hover { border-color:var(--paper); }
+.heritage-controls { display:flex; justify-content:space-between; gap:24px; border-top:1px solid var(--line); padding-top:20px; font-size:11px; color:var(--muted); }
+@media(max-width:1000px) and (min-width:761px) {
+ .heritage-editorial .heritage-caption { width:28%; bottom:8%; }
+ .heritage-editorial .heritage-stage .tiger-turn { width:69%; }
+}
+@media(max-width:760px) {
+ .heritage-editorial .heritage-label { font-size:9px; letter-spacing:.05em; }
+ .heritage-editorial .heritage-stage { height:auto; min-height:0; container-type:normal; margin-top:30px; padding-top:92vw; overflow:hidden; }
+ .heritage-editorial .heritage-stage h2 { left:2%; width:98%; top:0; font-size:25vw; }
+ .heritage-editorial .heritage-ascii { height:88vw; }
+ .heritage-editorial .heritage-stage .tiger-turn { width:95%; left:0; top:26vw; }
+ .heritage-editorial .heritage-caption { position:relative; width:100%; right:auto; bottom:auto; padding:0 0 30px; }
+ .heritage-editorial .heritage-caption p { font-size:18px; max-width:32ch; }
+ .heritage-editorial .heritage-caption .heritage-credit { font-size:12px; margin-top:14px; }
+ .heritage-source { margin-top:8px; min-height:44px; }
+ .heritage-controls { font-size:9px; gap:20px; line-height:1.7; }
+ .heritage-controls>span:first-child { max-width:24ch; }
+ .heritage-controls>span:last-child { flex-shrink:0; }
+}
